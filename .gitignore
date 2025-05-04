@@ -2,6 +2,18 @@
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/
+# Игнорируем скомпилированные файлы
+*.class
+
+# Игнорируем файлы IDE
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Игнорируем системные файлы
+.DS_Store
+Thumbs.db
 
 ### Eclipse ###
 .apt_generated
@@ -26,4 +38,3 @@ bin/
 .vscode/
 
 ### Mac OS ###
-.DS_Store
