@@ -1,0 +1,20 @@
+# Файлы сборки
+target/
+build/
+*.class
+*.jar
+*.war
+*.ear
+
+# Файлы IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Логи
+*.log
+
+# Файлы операционной системы
+.DS_Store
+Thumbs.db
