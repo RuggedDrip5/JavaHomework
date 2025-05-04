@@ -1,4 +1,4 @@
-package homework05;
+package homework05Addition;
 
 import java.util.Objects;
 
