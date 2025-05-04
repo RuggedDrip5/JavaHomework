@@ -1,5 +1,3 @@
-package homework012;
-
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -11,7 +9,6 @@ public class Person {
     private LocalDate birthDate;
     private long phoneNumber;
     private char gender;
-    private int age;
 
     public Person(String[] data) throws IllegalArgumentException, DateTimeParseException, NumberFormatException {
         if (data.length != 6) {
@@ -24,7 +21,6 @@ public class Person {
         this.birthDate = parseBirthDate(data[3]);
         this.phoneNumber = parsePhoneNumber(data[4]);
         this.gender = parseGender(data[5]);
-        this.age = calculateAge(birthDate);
     }
 
     private String validateName(String name, String fieldName) {
@@ -54,11 +50,7 @@ public class Person {
         if (genderStr.length() != 1 || (!genderStr.equalsIgnoreCase("m") && !genderStr.equalsIgnoreCase("f"))) {
             throw new IllegalArgumentException("Пол должен быть 'm' или 'f': " + genderStr);
         }
-        return genderStr.charAt(0);
-    }
-
-    private int calculateAge(LocalDate birthDate) {
-        return LocalDate.now().getYear() - birthDate.getYear();
+        return genderStr.toLowerCase().charAt(0);
     }
 
     @Override
@@ -69,7 +61,6 @@ public class Person {
                 phoneNumber, gender);
     }
 
-    // Геттеры
     public String getLastName() {
         return lastName;
     }
