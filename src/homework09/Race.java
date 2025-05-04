@@ -2,12 +2,13 @@ package homework09;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;  // Добавленный импорт
 
 public class Race {
     private int length;
     private String route;
     private int prizePool;
-    private List<Car> participants;
+    private final List<Car> participants;
 
     public Race() {
         this.participants = new ArrayList<>();
@@ -56,27 +57,8 @@ public class Race {
         this.length = length;
     }
 
-    public String getRoute() {
-        return route;
-    }
-
-    public void setRoute(String route) {
-        this.route = route;
-    }
-
-    public int getPrizePool() {
-        return prizePool;
-    }
-
-    public void setPrizePool(int prizePool) {
-        this.prizePool = prizePool;
-    }
-
     public List<Car> getParticipants() {
         return participants;
     }
 
-    public void setParticipants(List<Car> participants) {
-        this.participants = participants;
-    }
 }

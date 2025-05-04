@@ -1,16 +1,15 @@
 package homework09;
 
-public class Car {
-    private String brand;
-    private String model;
-    private int year;
-    private int horsepower;
-    private int acceleration;
-    private int suspension;
-    private int durability;
+import java.util.Objects;
 
-    public Car() {
-    }
+public class Car {
+    private final String brand;
+    private final String model;
+    private final int year;
+    private final int horsepower;
+    private final int acceleration;
+    private final int suspension;
+    private final int durability;
 
     public Car(String brand, String model, int year, int horsepower, int acceleration, int suspension, int durability) {
         this.brand = brand;
@@ -47,60 +46,12 @@ public class Car {
         return Objects.hash(brand, model, year, horsepower, acceleration, suspension, durability);
     }
 
-    // Геттеры и сеттеры
-    public String getBrand() {
-        return brand;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public String getModel() {
-        return model;
-    }
-
-    public void setModel(String model) {
-        this.model = model;
-    }
-
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
-
     public int getHorsepower() {
         return horsepower;
-    }
-
-    public void setHorsepower(int horsepower) {
-        this.horsepower = horsepower;
-    }
-
-    public int getAcceleration() {
-        return acceleration;
-    }
-
-    public void setAcceleration(int acceleration) {
-        this.acceleration = acceleration;
     }
 
     public int getSuspension() {
         return suspension;
     }
 
-    public void setSuspension(int suspension) {
-        this.suspension = suspension;
-    }
-
-    public int getDurability() {
-        return durability;
-    }
-
-    public void setDurability(int durability) {
-        this.durability = durability;
-    }
 }

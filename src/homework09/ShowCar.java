@@ -1,12 +1,9 @@
 package homework09;
 
+import java.util.Objects;
+
 public class ShowCar extends Car {
     private int stars;
-
-    public ShowCar() {
-        super();
-        this.stars = 0;
-    }
 
     public ShowCar(String brand, String model, int year, int horsepower, int acceleration, int suspension, int durability) {
         super(brand, model, year, horsepower, acceleration, suspension, durability);
@@ -36,12 +33,4 @@ public class ShowCar extends Car {
         return Objects.hash(super.hashCode(), stars);
     }
 
-    // Геттеры и сеттеры
-    public int getStars() {
-        return stars;
-    }
-
-    public void setStars(int stars) {
-        this.stars = stars;
-    }
 }

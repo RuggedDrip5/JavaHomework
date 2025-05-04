@@ -2,9 +2,10 @@ package homework09;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Garage {
-    private List<Car> parkedCars;
+    private final List<Car> parkedCars;
 
     public Garage() {
         this.parkedCars = new ArrayList<>();
@@ -12,10 +13,6 @@ public class Garage {
 
     public void parkCar(Car car) {
         parkedCars.add(car);
-    }
-
-    public void unparkCar(Car car) {
-        parkedCars.remove(car);
     }
 
     public void tuneCar(int index, String addOn) {
@@ -55,12 +52,4 @@ public class Garage {
         return Objects.hash(parkedCars);
     }
 
-    // Геттеры и сеттеры
-    public List<Car> getParkedCars() {
-        return parkedCars;
-    }
-
-    public void setParkedCars(List<Car> parkedCars) {
-        this.parkedCars = parkedCars;
-    }
 }

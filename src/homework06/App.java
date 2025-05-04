@@ -45,7 +45,7 @@ public class App {
         return entities;
     }
 
-    private static void processPurchases(Scanner scanner, List<Person> people, List<Product> products) {
+    public static void processPurchases(Scanner scanner, List<Person> people, List<Product> products) {
         System.out.println("Начните покупки (Формат: Имя Покупателя Название Продукта, END для завершения)");
 
         while (true) {
