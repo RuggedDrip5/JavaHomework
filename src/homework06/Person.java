@@ -4,41 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+@SuppressWarnings("ALL")
 public class Person {
     private String name;
     private double money;
-    private List<Product> bag;
+    private final List<Product> bag = List.of();
 
-    public Person(String name, double money) {
-        setName(name);
-        setMoney(money);
-        this.bag = new ArrayList<>();
+    public Person(String name) {
+
+        this.name = name;
     }
 
-    public Person() {
+    public Person(String name, double v) {
 
     }
 
     public String getName() {
         return name;
-    }
-
-    public void setName(String name) {
-        if (name == null || name.trim().isEmpty()) {
-            throw new IllegalArgumentException("Имя не может быть пустым");
-        }
-        this.name = name;
-    }
-
-    public double getMoney() {
-        return money;
-    }
-
-    public void setMoney(double money) {
-        if (money < 0) {
-            throw new IllegalArgumentException("Деньги не могут быть отрицательными");
-        }
-        this.money = money;
     }
 
     public List<Product> getBag() {
@@ -86,4 +68,5 @@ public class Person {
     public int hashCode() {
         return Objects.hash(name, money, bag);
     }
+
 }

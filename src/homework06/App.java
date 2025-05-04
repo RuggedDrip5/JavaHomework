@@ -1,135 +1,146 @@
 package homework06;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class App {
+    private static final Map<String, Person> people = new HashMap<>();
+    private static final Map<String, Product> products = new HashMap<>();
+    private static final List<String> purchaseHistory = new ArrayList<>();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
-        // Создаем список покупателей
-        List<Person> people = createEntities(scanner, "покупателей",
-                "Введите покупателей в формате: Имя=Сумма (END для завершения)",
-                (name, value) -> new Person());
+        try {
+            // 1. Ввод покупателей
+            System.out.println("Введите покупателей в формате: Имя=Сумма (END для завершения)");
+            readEntities(scanner, "покупателей", (name, money) -> {
+                Person p = new Person(name, Double.parseDouble(money));
+                people.put(name.toLowerCase(), p);
+                return p;
+            });
 
-        // Создаем список продуктов
-        List<Product> products = createEntities(scanner, "продуктов",
-                "Введите продукты в формате: Название=Цена (END для завершения)",
-                (name, value) -> new Product(name, Double.parseDouble(value)));
+            // 2. Ввод продуктов
+            System.out.println("Введите продукты в формате: Название=Цена (END для завершения)");
+            readEntities(scanner, "продуктов", (name, price) -> {
+                Product p = new Product(name, Double.parseDouble(price));
+                products.put(name.toLowerCase(), p);
+                return p;
+            });
 
-        // Процесс покупок
-        processPurchases(scanner, people, products);
+            // 3. Обработка покупок
+            System.out.println("Начните покупки (Формат: Имя Покупателя Название Продукта, END для завершения)");
+            processPurchases(scanner);
 
-        // Вывод результатов
-        printResults(people);
+            // 4. Вывод результатов
+            printResults();
+
+        } finally {
+            scanner.close();
+        }
     }
 
-    private static <T> List<T> createEntities(Scanner scanner, String entityType,
-                                              String prompt, EntityCreator<T> creator) {
-        List<T> entities = new ArrayList<>();
-        System.out.println(prompt);
-
+    private static void readEntities(Scanner scanner, String entityType, EntityCreator creator) {
         while (true) {
+            System.out.print("> ");
             String input = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("END")) break;
 
             try {
-                // Разделяем по первому знаку =
-                String[] parts = splitByFirstEquals(input);
-                T entity = creator.create(parts[0].trim(), parts[1].trim());
-                entities.add(entity);
+                String[] parts = input.split("=");
+                if (parts.length != 2) {
+                    System.out.println("Ошибка: Неправильный формат");
+                    continue;
+                }
+
+                String name = parts[0].trim();
+                String value = parts[1].trim();
+
+                if (name.isEmpty()) {
+                    System.out.println("Ошибка: Имя не может быть пустым");
+                    continue;
+                }
+
+                creator.create(name, value);
+
             } catch (Exception e) {
                 System.out.println("Ошибка при создании " + entityType + ": " + e.getMessage());
             }
         }
-        return entities;
     }
 
-    public static void processPurchases(Scanner scanner, List<Person> people, List<Product> products) {
-        System.out.println("Начните покупки (Формат: Имя Покупателя Название Продукта, END для завершения)");
-
+    private static void processPurchases(Scanner scanner) {
         while (true) {
+            System.out.print("> ");
             String input = scanner.nextLine().trim();
             if (input.equalsIgnoreCase("END")) break;
 
             try {
-                // Ищем последнее вхождение пробела между именем и продуктом
-                int lastSpace = findLastSpaceBetweenEntities(input, people, products);
+                String[] parts = input.split(" ", 2);
+                if (parts.length != 2) {
+                    System.out.println("Ошибка: Неправильный формат");
+                    continue;
+                }
 
-                String personName = input.substring(0, lastSpace).trim();
-                String productName = input.substring(lastSpace + 1).trim();
+                String personName = parts[0].trim();
+                String productName = parts[1].trim();
 
-                Person person = findPerson(people, personName);
-                Product product = findProduct(products, productName);
+                Person person = people.get(personName.toLowerCase());
+                Product product = products.get(productName.toLowerCase());
+
+                if (person == null) {
+                    System.out.println("Ошибка: Покупатель '" + personName + "' не найден");
+                    System.out.println("Доступные покупатели: " +
+                            people.keySet().stream().collect(Collectors.joining(", ")));
+                    continue;
+                }
+                if (product == null) {
+                    System.out.println("Ошибка: Продукт '" + productName + "' не найден");
+                    System.out.println("Доступные продукты: " +
+                            products.keySet().stream().collect(Collectors.joining(", ")));
+                    continue;
+                }
 
                 if (person.canAfford(product)) {
                     person.buyProduct(product);
-                    System.out.printf("%s купил(а) %s%n", personName, productName);
+                    String genderSuffix = personName.toLowerCase().endsWith("а") ? "а" : "";
+                    purchaseHistory.add(personName + " купил" + genderSuffix + " " + productName);
+                    System.out.println("Успешно: " + personName + " купил" + genderSuffix + " " + productName);
                 } else {
-                    System.out.printf("%s не может позволить себе %s%n", personName, productName);
+                    purchaseHistory.add(personName + " не может позволить себе " + productName);
+                    System.out.println("Отказ: " + personName + " не может позволить себе " + productName);
                 }
+
             } catch (Exception e) {
                 System.out.println("Ошибка: " + e.getMessage());
+                e.printStackTrace();
             }
         }
     }
 
-    private static int findLastSpaceBetweenEntities(String input, List<Person> people, List<Product> products) {
-        // Пробуем найти разделитель, который лучше всего соответствует именам и продуктам
-        for (int i = input.length() - 1; i > 0; i--) {
-            if (input.charAt(i) == ' ') {
-                String possiblePerson = input.substring(0, i).trim();
-                String possibleProduct = input.substring(i + 1).trim();
+    private static void printResults() {
+        System.out.println("\n=== ИТОГИ ПОКУПОК ===");
+        purchaseHistory.forEach(System.out::println);
 
-                boolean personExists = people.stream().anyMatch(p -> p.getName().equals(possiblePerson));
-                boolean productExists = products.stream().anyMatch(p -> p.getName().equals(possibleProduct));
-
-                if (personExists && productExists) {
-                    return i;
+        System.out.println("\n=== ИТОГОВОЕ СОСТОЯНИЕ ===");
+        people.values().forEach(person -> {
+            if (person != null && person.getName() != null) {
+                System.out.print(person.getName() + " - ");
+                if (person.getBag().isEmpty()) {
+                    System.out.println("Ничего не куплено");
+                } else {
+                    System.out.println(person.getBag().stream()
+                            .filter(Objects::nonNull)
+                            .map(Product::getName)
+                            .filter(Objects::nonNull)
+                            .collect(Collectors.joining(", ")));
                 }
-            }
-        }
-        throw new IllegalArgumentException("Не удалось определить разделитель между именем и продуктом");
-    }
-
-    private static String[] splitByFirstEquals(String input) {
-        int eqIndex = input.indexOf('=');
-        if (eqIndex == -1) {
-            throw new IllegalArgumentException("Отсутствует знак =");
-        }
-        return new String[]{input.substring(0, eqIndex), input.substring(eqIndex + 1)};
-    }
-
-    private static Person findPerson(List<Person> people, String name) {
-        return people.stream()
-                .filter(p -> p.getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Покупатель не найден: " + name));
-    }
-
-    private static Product findProduct(List<Product> products, String name) {
-        return products.stream()
-                .filter(p -> p.getName().equals(name))
-                .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("Продукт не найден: " + name));
-    }
-
-    private static void printResults(List<Person> people) {
-        System.out.println("\n=== Итоги покупок ===");
-        people.forEach(person -> {
-            System.out.print(person.getName() + " - ");
-            if (person.getBag().isEmpty()) {
-                System.out.println("Ничего не куплено");
-            } else {
-                System.out.println(String.join(", ",
-                        person.getBag().stream()
-                                .map(Product::getName)
-                                .toArray(String[]::new)));
             }
         });
     }
 
     @FunctionalInterface
-    private interface EntityCreator<T> {
-        T create(String name, String value) throws Exception;
+    private interface EntityCreator {
+        Object create(String name, String value) throws Exception;
     }
 }
