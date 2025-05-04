@@ -15,6 +15,10 @@ public class Person {
         this.bag = new ArrayList<>();
     }
 
+    public Person() {
+
+    }
+
     public String getName() {
         return name;
     }

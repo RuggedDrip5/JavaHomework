@@ -1,7 +1,6 @@
 package homework06;
 
 import java.util.*;
-import java.util.regex.Pattern;
 
 public class App {
     public static void main(String[] args) {
@@ -10,7 +9,7 @@ public class App {
         // Создаем список покупателей
         List<Person> people = createEntities(scanner, "покупателей",
                 "Введите покупателей в формате: Имя=Сумма (END для завершения)",
-                (name, value) -> new Person(name, Double.parseDouble(value)));
+                (name, value) -> new Person());
 
         // Создаем список продуктов
         List<Product> products = createEntities(scanner, "продуктов",
