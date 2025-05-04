@@ -1,6 +1,7 @@
 package homework05Addition;
 
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.Scanner;
 import java.util.Random;
 
@@ -39,7 +40,7 @@ public class App {
         System.out.println("\nВключенные телевизоры с громкостью <= " + maxVolume + ":");
         Arrays.stream(tvs)
                 .filter(tv -> tv.isOn() && tv.getVolume() <= maxVolume)
-                .sorted((tv1, tv2) -> Integer.compare(tv1.getCurrentChannel(), tv2.getCurrentChannel()))
+                .sorted(Comparator.comparingInt(Television::getCurrentChannel))
                 .forEach(System.out::println);
 
         // Демонстрация работы методов
