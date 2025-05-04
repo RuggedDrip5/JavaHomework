@@ -30,8 +30,8 @@ public class Main {
 
         System.out.println("\nНомера автомобилей по цвету или пробегу:");
         String numbers = cars.stream()
-                .filter(c -> c.getColor().equals(colorToFind) || c.getMileage() == mileageToFind)
-                .map(Car::getNumber)
+                .filter(c -> c.color().equals(colorToFind) || c.mileage() == mileageToFind)
+                .map(Car::number)
                 .collect(Collectors.joining(" "));
         System.out.println(numbers);
 
@@ -40,16 +40,16 @@ public class Main {
         long maxPrice = 800_000L;
 
         long uniqueModelsCount = cars.stream()
-                .filter(c -> c.getPrice() >= minPrice && c.getPrice() <= maxPrice)
-                .map(Car::getModel)
+                .filter(c -> c.price() >= minPrice && c.price() <= maxPrice)
+                .map(Car::model)
                 .distinct()
                 .count();
         System.out.println("\nУникальные автомобили: " + uniqueModelsCount + " шт.");
 
         // 3. Цвет автомобиля с минимальной стоимостью
         String minPriceColor = cars.stream()
-                .min(Comparator.comparingLong(Car::getPrice))
-                .map(Car::getColor)
+                .min(Comparator.comparingLong(Car::price))
+                .map(Car::color)
                 .orElse("Не найден");
         System.out.println("\nЦвет автомобиля с минимальной стоимостью: " + minPriceColor);
 
@@ -58,14 +58,14 @@ public class Main {
         String modelToFind2 = "Volvo";
 
         double avgPrice1 = cars.stream()
-                .filter(c -> c.getModel().equals(modelToFind1))
-                .mapToLong(Car::getPrice)
+                .filter(c -> c.model().equals(modelToFind1))
+                .mapToLong(Car::price)
                 .average()
                 .orElse(0.0);
 
         double avgPrice2 = cars.stream()
-                .filter(c -> c.getModel().equals(modelToFind2))
-                .mapToLong(Car::getPrice)
+                .filter(c -> c.model().equals(modelToFind2))
+                .mapToLong(Car::price)
                 .average()
                 .orElse(0.0);
 
