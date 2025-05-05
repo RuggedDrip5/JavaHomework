@@ -1,9 +1,12 @@
 package homework09;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class PerformanceCar extends Car {
     private final List<String> addOns;
 
@@ -15,31 +18,4 @@ public class PerformanceCar extends Car {
     public void addAddOn(String addOn) {
         this.addOns.add(addOn);
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder(super.toString());
-        sb.append("\nAdd-ons: ");
-        if (addOns.isEmpty()) {
-            sb.append("None");
-        } else {
-            sb.append(String.join(", ", addOns));
-        }
-        return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        PerformanceCar that = (PerformanceCar) o;
-        return Objects.equals(addOns, that.addOns);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), addOns);
-    }
-
 }
