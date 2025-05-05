@@ -2,6 +2,7 @@ package homework017;
 
 public class App {
     public static void main(String[] args) {
+        System.out.println("=== Program start ===");
         CarRepository carRepository = new CarRepositoryFileImpl("src/main/resources/cars.txt");
 
         // Create some cars
@@ -18,5 +19,6 @@ public class App {
 
         // Rest of the original code...
         // (Create races, garage, etc.)
+        System.out.println("=== Program stop ===");
     }
 }

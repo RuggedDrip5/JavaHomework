@@ -1,6 +1,6 @@
-package homework09;
+package homework017;
 
-import homework017.*;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
@@ -8,7 +8,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
-import static org.junit.jupiter.api.Assertions.*;
 
 class CarRepositoryTest {
     private static final String TEST_FILE = "src/test/resources/test-cars.txt";
@@ -32,8 +31,8 @@ class CarRepositoryTest {
         repository.save(car);
 
         List<Car> cars = repository.findAll();
-        assertEquals(1, cars.size());
-        assertEquals("Test", cars.get(0).getBrand());
+        Assertions.assertEquals(1, cars.size());
+        Assertions.assertEquals("Test", cars.get(0).getBrand());
     }
 
     @Test
@@ -42,7 +41,7 @@ class CarRepositoryTest {
         repository.save(new ShowCar("Test", "Model2", 2021, 600, 3, 350, 450));
 
         Car found = repository.findByBrandAndModel("Test", "Model2");
-        assertNotNull(found);
-        assertEquals(2021, found.getYear());
+        Assertions.assertNotNull(found);
+        Assertions.assertEquals(2021, found.getYear());
     }
 }

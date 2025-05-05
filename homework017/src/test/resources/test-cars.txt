@@ -1,2 +1,1 @@
-Performance,Ferrari,488 GTB,2020,670,3,300,500
-Show,Porsche,911 Turbo S,2022,650,3,350,600
+Performance,Test,Model,2020,750,3,225,400
