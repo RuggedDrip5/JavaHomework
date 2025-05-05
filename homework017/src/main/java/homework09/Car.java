@@ -1,7 +1,12 @@
 package homework09;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.ToString;
 
+@Getter
+@ToString
+@EqualsAndHashCode
 public class Car {
     private final String brand;
     private final String model;
@@ -20,38 +25,4 @@ public class Car {
         this.suspension = suspension;
         this.durability = durability;
     }
-
-    @Override
-    public String toString() {
-        return String.format("%s %s (%d)%n" +
-                        "Horsepower: %d%n" +
-                        "Acceleration: %d%n" +
-                        "Suspension: %d%n" +
-                        "Durability: %d",
-                brand, model, year, horsepower, acceleration, suspension, durability);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Car car = (Car) o;
-        return year == car.year && horsepower == car.horsepower && acceleration == car.acceleration
-                && suspension == car.suspension && durability == car.durability
-                && Objects.equals(brand, car.brand) && Objects.equals(model, car.model);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(brand, model, year, horsepower, acceleration, suspension, durability);
-    }
-
-    public int getHorsepower() {
-        return horsepower;
-    }
-
-    public int getSuspension() {
-        return suspension;
-    }
-
 }
