@@ -1,7 +1,10 @@
 package homework09;
 
-import java.util.Objects;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
+@ToString(callSuper = true)
+@EqualsAndHashCode(callSuper = true)
 public class ShowCar extends Car {
     private int stars;
 
@@ -13,24 +16,4 @@ public class ShowCar extends Car {
     public void increaseStars(int value) {
         this.stars += value;
     }
-
-    @Override
-    public String toString() {
-        return super.toString() + String.format("%nStars: %d", stars);
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        if (!super.equals(o)) return false;
-        ShowCar showCar = (ShowCar) o;
-        return stars == showCar.stars;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(super.hashCode(), stars);
-    }
-
 }
