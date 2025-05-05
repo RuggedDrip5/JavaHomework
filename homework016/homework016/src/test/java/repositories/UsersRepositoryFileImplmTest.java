@@ -9,7 +9,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class UsersRepositoryFileImplTest {
+class UsersRepositoryFileImplmTest {
     private UsersRepository repository;
 
     @BeforeEach
