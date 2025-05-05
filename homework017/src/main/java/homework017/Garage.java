@@ -1,4 +1,4 @@
-package homework09;
+package homework017;
 
 import lombok.EqualsAndHashCode;
 import lombok.ToString;

@@ -1,7 +1,7 @@
 package repositories;
 
+import exceptions.UserNotFoundException;
 import model.User;
-import exceptions.UserNotFoundException;  // Добавьте этот импорт
 
 import java.util.List;
 
