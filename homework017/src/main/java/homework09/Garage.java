@@ -1,9 +1,12 @@
 package homework09;
 
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
+@ToString
+@EqualsAndHashCode
 public class Garage {
     private final List<Car> parkedCars;
 
@@ -25,31 +28,4 @@ public class Garage {
             }
         }
     }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder("Garage:\n");
-        if (parkedCars.isEmpty()) {
-            sb.append("No cars parked");
-        } else {
-            for (Car car : parkedCars) {
-                sb.append(car.toString()).append("\n");
-            }
-        }
-        return sb.toString();
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Garage garage = (Garage) o;
-        return Objects.equals(parkedCars, garage.parkedCars);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(parkedCars);
-    }
-
 }
