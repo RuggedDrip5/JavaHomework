@@ -1,0 +1,16 @@
+Performance,Ferrari,488 GTB,2020,1005,3,225,500
+Performance,Lamborghini,Huracan,2021,960,3,240,550
+Show,Porsche,911 Turbo S,2022,650,3,350,600
+Show,McLaren,720S,2021,710,3,340,580
+Performance,Ferrari,488 GTB,2020,1005,3,225,500
+Performance,Lamborghini,Huracan,2021,960,3,240,550
+Show,Porsche,911 Turbo S,2022,650,3,350,600
+Show,McLaren,720S,2021,710,3,340,580
+Performance,Ferrari,488 GTB,2020,1005,3,225,500
+Performance,Lamborghini,Huracan,2021,960,3,240,550
+Show,Porsche,911 Turbo S,2022,650,3,350,600
+Show,McLaren,720S,2021,710,3,340,580
+Performance,Ferrari,488 GTB,2020,1005,3,225,500
+Performance,Lamborghini,Huracan,2021,960,3,240,550
+Show,Porsche,911 Turbo S,2022,650,3,350,600
+Show,McLaren,720S,2021,710,3,340,580
