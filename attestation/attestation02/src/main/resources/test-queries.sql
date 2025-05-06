@@ -38,11 +38,21 @@ UPDATE customer SET email = 'new_email@example.com' WHERE id = 5;
 
 -- Запросы на удаление данных
 
--- 8. Удалить заказы старше 2023 года (если бы такие были)
-DELETE FROM order_table WHERE order_date < '2023-01-01';
+-- Безопасное удаление покупателя
+BEGIN;
+-- Сначала удаляем все заказы покупателя
+DELETE FROM order_table WHERE customer_id = 8;
+-- Затем удаляем самого покупателя
+DELETE FROM customer WHERE id = 8;
+COMMIT;
 
--- 9. Удалить товар с id=10 (если нет связанных заказов)
+-- Безопасное удаление товара
+BEGIN;
+-- Сначала удаляем все заказы с этим товаром
+DELETE FROM order_table WHERE product_id = 10;
+-- Затем удаляем сам товар
 DELETE FROM product WHERE id = 10;
+COMMIT;
 
 -- 10. Удалить покупателя с id=8 (если нет связанных заказов)
 DELETE FROM customer WHERE id = 8;
